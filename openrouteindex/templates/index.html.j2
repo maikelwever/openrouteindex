@@ -1,0 +1,77 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<div class="container px-4 py-5">
+    <div class="row">
+        <div class="col">
+            <h1>{{ title }}</h1>
+            <h4>
+                OpenRouteIndex is een verzameling van routes in Nederland die in de
+                <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> database staan
+            </h4>
+            <hr />
+            <p>
+                Via de navigatiebalk bovenaan elke pagina kan je de verschillende categorieën aan routes in de index opvragen.
+            </p>
+            <p>Het doel van deze index is:</p>
+            <ul>
+                <li>Een overzicht geven van alle routes in Nederland, met expliciete uitzondering van knooppunten.</li>
+                <ul>
+                    <li>Voor knooppunten bestaat namelijk al een website:
+                        <a href="https://knooppuntnet.nl" target="_blank">knooppuntnet.nl</a></li>
+                </ul>
+                <li>Het inzichtelijker maken welke routes hulp van de OpenStreetMap community kunnen gebruiken:</li>
+                <ul>
+                    <li>door het prominent weergeven van de inhoud van de <code>survey:date</code> tag,</li>
+                    <li>en het aangeven van routes waar gaten in zitten met
+                        <i class="fa-solid fa-road-circle-xmark" title="Route vormt geen aaneengesloten geheel"></i>.
+                        <small>Dit icoon opent een kaart met daarop de vermoedelijke problemen met de route.</small>
+                    </li>
+
+                </ul>
+                <li>Een overzicht van routes per regio te geven, zodat het makkelijker te zien is welke routes nog
+                    niet in de OpenStreetMap database staan.</li>
+            </ul>
+            <p>Wat is het doel van deze index <strong><i>niet</i></strong>:</p>
+            <ul>
+                <li>Concurreren met of vervangen van
+                    <a href="https://knooppuntnet.nl" target="_blank">knooppuntnet.nl</a>.</li>
+                <li>Concurreren met of vervangen van <a href="https://waymarkedtrails.org/" target="_blank">Waymarked Trails</a>.</li>
+                <li>Een algemenere (wandel)route website te zijn zoals Wandelnet of Komoot.</li>
+                <li>Een real-time representatie te zijn van (de wijzigingen op) OpenStreetMap.</li>
+            </ul>
+            <hr />
+            <p>
+                De index werkt als volgt:
+            </p>
+            <ul>
+                <li>De applicatie kopieert een OSM-export van Nederland van
+                    <a href="https://download.geofabrik.de/europe/netherlands.html" target="_blank">GeoFabrik</a>.</li>
+                <li>De gegevens worden gefilterd op basis van de <code>type=route;superroute;network</code> tag.</li>
+                <li>De gegevens worden vervolgens in een
+                    <a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a> +
+                    <a href="https://postgis.net/" target="_blank">PostGIS</a>
+                    database geïmporteerd met <a href="https://osm2pgsql.org/" target="_blank">Osm2pgsql</a>.</li>
+                <li>Om routes die de grens overgaan goed te verwerken, wordt een lijst met missende objecten verzameld.
+                    Deze worden vervolgens opgevraagd bij
+                    <a href="https://overpass-api.de/" target="_blank">Overpass</a>, en in de database geïnjecteerd.</li>
+                <li>Van alle routes worden de wegen in de routes verzameld tot één grote lijst van wegen.
+                    Hierbij worden sub-relaties ook recursief meegenomen.</li>
+                <li>Het middenpunt van de wegen wordt berekend voor de groepering op regio.</li>
+                <li>
+                    Voor elke route worden de wegen, en alle knopen in de wegen recursief verzameld.
+                    Voor elke weg in de route wordt gekeken of één van de knopen ook voorkomt in één van de andere wegen.
+                    Is dit het geval, dan wordt de route als gatenvrij gemarkeerd.
+                </li>
+                <li>Een <a href="https://www.python.org/" target="_blank">Python</a> script haalt de gegevens
+                    uit de database en maakt deze tot de pagina's die je hier ziet.</li>
+            </ul>
+            <p>
+                Bekende problemen:
+            </p>
+            <ul>
+                <li>Lijsten in tags worden niet uitgepakt, bijvoorbeeld <code>operator=Staatsbosbeheer;Natuurmonumenten</code>.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

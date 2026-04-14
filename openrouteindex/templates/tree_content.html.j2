@@ -1,0 +1,73 @@
+<div class="container-fluid px-4 py-2">
+    <div class="row pb-2 mb-4 border-bottom">
+        <div class="col-md-8 d-flex align-items-center">
+            <h1>{{ title }}</h1>
+        </div>
+        <div class="col-md-4 d-flex align-items-center justify-content-end">
+            {% if wheres %}
+                <div class="text-end">
+                    {% for w in wheres %}
+                        <kbd class="nowrap">
+                            {%- if w.left.description == 'coalesce' -%}
+                                {{ (w.left.clauses | list)[0].right.value }}
+                            {%- else -%}
+                                {{ w.left.right.value }}
+                            {%- endif -%}
+                            &nbsp;{%- if w.operator.__name__ in ['not_in_op', 'ne'] -%}!={%- else -%}=={%- endif -%}&nbsp;
+                            {%- if w.right.value is not string -%}
+                                ({{ w.right.value | join('|') }})
+                            {%- else -%}
+                                {{ w.right.value }}
+                            {%- endif -%}
+                        </kbd>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th colspan="2">Naam</th>
+                    <th>Code</th>
+                    <th>Relatie</th>
+                    <th></th>
+                    <th>Net</th>
+                    {% if include_region_code %}<th>Regio</th>{% endif %}
+                    <th class="tb">Operator</th>
+                    <th>Gelopen op</th>
+                    <th>Versie</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for route in data %}
+                    <tr>
+                        {% if route.depth > 1 %}<td class="tpad">&nbsp;</td>{% endif %}
+                        <td colspan="{{ 2 if route.depth < 2 else 1 }}">
+                            {% for _ in range(route.depth-2) %}<span class="tspan">&mdash;</span>{% endfor %}
+                            {% if route.depth == 1 %}<strong>{% endif %}
+                            {{ route.tags.name or '' }}
+                            {% if route.depth == 1 %}</strong>{% endif %}
+                            {% if route.tags.colour %}<span class="color-marker" style="background-color: {{ route.tags.colour }};"></span>{% endif %}
+                        </td>
+                        <td>{% if route.tags.ref %}{{ route.tags.ref }}{% endif %}</td>
+                        <td>{% include 'relation_links.html.j2' %}</td>
+                        <td>{% include 'route_icons.html.j2' %}</td>
+                        <td>{{ route.tags.network }}</td>
+                        {% if include_region_code %}<td class="nowrap">{{ route.region_code }}</td>{% endif %}
+                        <td class="tb">
+                            <div>
+                                {{ route.tags.operator }}
+                            </div>
+                        </td>
+                        <td class="tb"><div>{{ route.tags['survey:date'] or '' }}</div></td>
+                        <td><div class="nowrap">v{{ route.version }} <small>({{ route.created.strftime('%Y-%m-%d') }})</small></div></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+
+    <link href="bootswatch.css" rel="stylesheet">
+    <link href="fontawesome.min.css" rel="stylesheet">
+    <link href="fa-solid.min.css" rel="stylesheet">
+    <link href="global.css" rel="stylesheet">
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+<div class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark">
+    <div class="container-xl">
+        <a href="index.html" class="navbar-brand">OpenRouteIndex</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-person-hiking"></i> Wandelen
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="wandelen_iwn_nwn.html">(Inter)nationale routes</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><h6 class="dropdown-header">Regionale en lokale routes</h6></li>
+                        {% for code, name in regions %}
+                            <li><a class="dropdown-item" href="wandelen_in_{{ name.lower() }}.html">in {{ name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-person-biking"></i> Fietsen
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="fietsen_icn_ncn.html">(Inter)nationale routes</a></li>
+                        <li><a class="dropdown-item" href="fietsen_rcn_lcn.html">Regionale en lokale routes</a></li>
+                        <li><a class="dropdown-item" href="fietsverkeersroutes.html">Fietsverkeersroutes</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="mtb.html"><i class="fa-solid fa-hill-rockslide"></i> MTB</a></li>
+                <li class="nav-item"><a class="nav-link" href="paardrijden.html"><i class="fa-solid fa-horse"></i> Paardrijden</a></li>
+                <li class="nav-item"><a class="nav-link" href="hardlopen.html"><i class="fa-solid fa-person-running"></i> Hardlopen</a></li>
+                <li class="nav-item"><a class="nav-link" href="overige.html"><i class="fa-solid fa-layer-group"></i> Overige</a></li>
+            </ul>
+            <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-road-circle-xmark"></i> Gatendetectie
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="gatendetectie_wandelen.html">Wandelen</a></li>
+                        <li><a class="dropdown-item" href="gatendetectie_fietsen.html">Fietsen</a></li>
+                        <li><a class="dropdown-item" href="gatendetectie_mtb.html">MTB</a></li>
+                        <li><a class="dropdown-item" href="gatendetectie_paardrijden.html">Paardrijden</a></li>
+                        <li><a class="dropdown-item" href="gatendetectie_hardlopen.html">Hardlopen</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% block content %}
+<div class="container-fluid px-4 py-5">
+    <h2 class="pb-2 border-bottom">OpenRouteIndex</h2>
+    <p>Hier staat niets</p>
+</div>
+{% endblock %}
+
+<div class="container">
+    <footer class="py-3 my-4">
+        <p class="text-center text-body-secondary">
+            <a href="https://github.com/maikelwever/openrouteindex">OpenRouteIndex</a> gebruikt data van <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>.
+            Pagina's gegenereerd met data van {{ timestamp }}.
+        </p>
+    </footer>
+</div>
+
+<script src="bootstrap.bundle.min.js"></script>
+
+{% block js %}{% endblock %}
+</body>
+</html>

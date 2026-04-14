@@ -1,0 +1,8 @@
+<div class="nowrap">
+    {% if route.all_ways_connect == False %}<a href="routedebugger.html#debug_rel_{{ route.id }}.json" target="_blank">
+        <i class="fa-solid fa-road-circle-xmark" title="Route vormt geen aaneengesloten geheel"></i>
+    </a>{% endif %}
+    {% if route.tags.roundtrip == 'yes' %}<i class="fa-solid fa-arrows-spin" title="roundtrip"></i>{% endif %}
+    {% if route.tags.signed_direction == 'yes' %}<i class="fa-solid fa-arrow-down-up-across-line" title="signed_direction"></i>{% endif %}
+    {% if route.tags.oneway == 'yes' %}<i class="fa-solid fa-up-long" title="oneway"></i>{% endif %}
+</div>

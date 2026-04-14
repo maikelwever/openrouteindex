@@ -1,0 +1,40 @@
+/* This file is part of OpenRouteIndex and is licensed under AGPL 3.0 only */
+body {
+    padding-top: 80px;
+}
+.color-marker {
+    display: inline-block;
+    border: 1px solid black;
+    margin-right: 0.5em;
+    padding: 0.5em;
+    float: right;
+}
+.tpad {
+    opacity: 0;
+    border: 0;
+}
+.tspan {
+    padding: 2px;
+}
+.tb {
+    max-width: 10vw;
+}
+.tb div {
+    max-height: 2.2em;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+.nowrap {
+    white-space: nowrap;
+}
+.relnum {
+    width: 12ex;
+    display: inline-block;
+}
+a {
+    text-decoration: none;
+}
+.relnum {
+    text-decoration: underline;
+}

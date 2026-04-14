@@ -1,0 +1,7 @@
+{% extends 'base.html.j2' %}
+
+{% block content %}
+    {% for title, (data, wheres) in others.items() %}
+        {% include 'tree_content.html.j2' %}
+    {% endfor %}
+{% endblock %}

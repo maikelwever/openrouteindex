@@ -1,0 +1,6 @@
+<div class="nowrap">
+    <a class="relnum" href="https://www.openstreetmap.org/relation/{{ route.id }}" target="_blank">{{ route.id }}</a>
+    <a href="https://osm.org/edit?editor=id&relation={{ route.id }}" target="_blank" title="Edit in iD">🆔</a>
+    <a href="http://localhost:8111/import?url=https://api.osm.org/api/0.6/relation/{{ route.id }}/full" target="_blank" title="Import into JOSM"><i class="fa-solid fa-map-location"></i></a>
+    {% if wmt_subdomain %}<a href="https://{{ wmt_subdomain }}.waymarkedtrails.org/#route?id={{ route.id }}&type=relation" target="_blank" title="View on Waymarked Trails"><i class="fa-solid fa-signs-post"></i></a>{% endif %}
+</div>
