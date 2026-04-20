@@ -37,7 +37,7 @@
                     <th>Net</th>
                     {% if include_region_code %}<th>Regio</th>{% endif %}
                     <th class="tb">Operator</th>
-                    <th>Gelopen op</th>
+                    <th>Survey <a title="tabel sorteren op survey:date" class="survey-sort" href="#"><i class="fa-solid fa-arrow-down-up-across-line"></i></a></th>
                     <th>Versie</th>
                 </tr>
                 </thead>
@@ -62,7 +62,7 @@
                                 {{ route.tags.operator }}
                             </div>
                         </td>
-                        <td class="tb"><div>{{ route.tags['survey:date'] or '' }}</div></td>
+                        <td class="tb sv"><div>{{ route.tags['survey:date'] or '' }}</div></td>
                         <td><div class="nowrap">v{{ route.version }} <small>({{ route.created.strftime('%Y-%m-%d') }})</small></div></td>
                     </tr>
                 {% endfor %}

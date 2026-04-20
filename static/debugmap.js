@@ -1,4 +1,4 @@
-onload = (event) => {
+addEventListener("load", (event) => {
     const mapL = new maplibregl.Map({
         container: 'map',
         style: 'https://tiles.openfreemap.org/styles/positron',
@@ -47,4 +47,4 @@ onload = (event) => {
             padding: 200
         });
     });
-}
+});
