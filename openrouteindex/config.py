@@ -22,6 +22,7 @@ def env_bool(key, default):
 DEBUG = env_bool('DEBUG', False)
 DATABASE_URL = os.environ.get('DATABASE_URL', 'postgresql:///openrouteindex_0')
 FTP_URL = os.environ.get('FTP_URL', '')
+HEALTHCHECK_URL = os.environ.get('HEALTHCHECK_URL', '')
 
 PROJECT_DIR = Path(__file__).absolute().parent.parent
 SQL_DIR = PROJECT_DIR / 'sql'

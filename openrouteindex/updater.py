@@ -150,7 +150,11 @@ def fetch_from_overpass(relation_ids):
 
     while retries < max_retries:
         try:
-            response = requests.post('https://overpass-api.de/api/interpreter', data={'data': query})
+            response = requests.post(
+                'https://overpass-api.de/api/interpreter',
+                data={'data': query},
+                headers={'User-Agent': 'OpenRouteIndex (https://github.com/maikelwever/openrouteindex)'}
+            )
             response.raise_for_status()
             return response.json(parse_float=decimal.Decimal)
         except requests.exceptions.RequestException as e:
@@ -354,6 +358,13 @@ def do_update(with_upload_to_ftp: bool, force_processing: bool):
 
         if with_upload_to_ftp:
             upload_to_ftp()
+
+        if config.HEALTHCHECK_URL:
+            qdlog(' > Calling HealthCheck URL')
+            try:
+                requests.get(config.HEALTHCHECK_URL)
+            except:
+                pass
 
 
 def update_loop(with_upload_to_ftp: bool):
