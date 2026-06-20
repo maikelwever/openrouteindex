@@ -7,7 +7,7 @@ name: Docker
 
 on:
   schedule:
-    - cron: '27 4 * * *'
+    - cron: '27 4 1 * *'
   push:
     branches: [ "main" ]
     # Publish semver tags as releases.
